@@ -54,7 +54,7 @@ Press once on the windows key on the bottom left of the keyboard, the type direc
 
 It should open your roaming folder where you can find the Kraken folder
 
-Enter the Harvest Folder and double click on Kraken.conf
+Enter the Kraken folder and double click on Kraken.conf
 
 It should open the file in Notepad. Then paste these lines:
 
