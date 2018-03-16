@@ -1,4 +1,4 @@
-	Local Windows Hot wallet - VPS Ubuntu 16.04 Cold wallet setup
+	Local Windows Hot wallet - VPS Ubuntu 14.04 and 16.04 Cold wallet setup
 -------------------------------------------------------------------------------------------
 
 We will be setting up two masternode wallets:
@@ -137,16 +137,7 @@ Append the following line to the end of the file:
 
 Save the file and exit
 
-Step 3: Firewall ( can do this step at anytime )
-
-sudo apt-get install ufw
-sudo ufw allow OpenSSH
-sudo ufw allow 14117
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw enable
-
-Step 4 : You need to install dependencies
+Step 3 : You need to install dependencies
 
 sudo apt-get -y update && sudo apt-get -y install build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool
 
@@ -154,7 +145,7 @@ sudo apt-get install git
 
 git clone https://github.com/krakencoins/Kraken.git
 
-Step 5: Compiling the wallet
+Step 4: Compiling the wallet
 
 cd ~/Kraken/src
 
@@ -179,7 +170,7 @@ make -f makefile.unix
 
 
 
-Step 6: Now you can Start your VPS masternode:
+Step 5: Now you can Start your VPS masternode:
 
 
 ./Krakend
@@ -190,7 +181,7 @@ And exit normally, it wants you to set a user and password in the file ~/.Kraken
 You can use the password it suggests, or use another one you choose.
 
 
-Step 7: Editing Kraken.conf to set user and password (Note edit with nano or vi)
+Step 6: Editing Kraken.conf to set user and password (Note edit with nano or vi)
 
 apt-get install nano git -y
 
@@ -226,6 +217,8 @@ To check the status of your masternode, press enter (or ctrl+c) to get command l
 
 ./Krakend getinfo 
 
+./Krakend masternode status
+
 
 Once the blocks number is the same that you can see in the help-debug window-information of your synced local wallet, or on the block explorer, it means your vps wallet is synced.
 
@@ -252,7 +245,7 @@ If you get:
     "notCapableReason" : "Could not find suitable coins!"
 
 Check masternode 2500KC trasation if it has minimum 15 confirmations. 
-
 or
-
 Restart your local wallet , go to Masternodes -> My Masternodes. Press Update. Select masternode from list and press Start. Press Update again.
+
+
