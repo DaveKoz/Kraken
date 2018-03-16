@@ -1,4 +1,4 @@
-Local Windows Hot wallet - VPS Ubuntu 14.04 Cold wallet setup
+	Local Windows Hot wallet - VPS Ubuntu 16.04 Cold wallet setup
 -------------------------------------------------------------------------------------------
 
 We will be setting up two masternode wallets:
@@ -10,21 +10,13 @@ After the install, you can shut down your local wallet anytime, and the remote w
 
 For this to work, you will need to rent a VPS, like at arubacloud.com, interserver.net, scaleway.com, vultur.com
 
-Ubuntu Trusty 14.04 64bit is the best for this setup.
-Once you have rented your VPS and you know your remote IP, you need to learn how to secure it, 
-check Bitvise https://www.bitvise.com/ssh-client-download
-You can find info how to secure your VPS with Bitvise here https://www.bitvise.com/getting-started Or elsewhere on the web.
-
 -----------------------
 The Local wallet Setup:
 -----------------------
 
 First download Windows Kraken Coin wallet from the official website: http://www.krakencoin.eu/
 
-Once installed you should Encrypt the wallet, and keep your password safe.
-Then Backup your encrypted wallet to a safe place.
-
-Now let the wallet sync. If it does not sync you can close and try again.
+Let the wallet sync. If it does not sync you can close and try again.
 
 Open yourself a new notepad textfile to paste all your informations for future use.
 
@@ -32,13 +24,12 @@ What you are searching for is these informations:
 
 Masternode deposit address:
 Masternode private key:
-Remote IP address:
-Port:14117
+Remote IP address and port:
 Valid 2500 KC Transaction Hash:
 Valid 2500 KC Transaction Index:
 
 To find those infos, 
-Go to Help -> Debug Window and Select The Console Tab
+Go to Help -> Debug Window and select Console tab
 
 In the Console window bottom field, type getaccountaddress 0 and copy the result to your notepad.
 This is your MASTERNODE DEPOSIT ADDRESS, where you will deposit the coins to create a masternode. Pay 2500 KC exactly into this address. No more, no less.
@@ -48,32 +39,8 @@ You need 15 confirmations on your valid tx to start your masternode.
 In the Console Debug window enter “masternode genkey” and copy the result to your notepad.
 This is your MASTERNODE PRIVKEY. 
 
-Now we need to open the local wallet configuration file, it's in a hidden folder on your roaming folder on your computer, so to access it:
-
-Press once on the windows key on the bottom left of the keyboard, the type directly %appdata% and press enter.
-
-It should open your roaming folder where you can find the Kraken folder
-
-Enter the Kraken folder and double click on Kraken.conf
-
-It should open the file in Notepad. Then paste these lines:
-
-masternode=1
-rpcuser=		(yourusername)
-rpcpassword=		(yourlongpassword)
-masternodeprivkey=	(your local masternode private key)
-masternodeaddr=		(IP:Port)
-
-
-Go back to your Notepad and copy-paste your private key after the equals sign of “masternodeprivkey=”.
-Paste the IP and PORT after masternodeaddr=   (example 23.34.32.220:14117)  
-IP is your remote VPS IP Address, Port for this coin is 14117  
-Now save and close the Kraken.conf file.
-
-One thing done.
-
 Now we need to find the Valid transaction proof:  
-(You need to have already made your exact 2500 KC transaction, and have the wallet unlocked sync, and 15 confirmations for this).
+(You need to have already made your exact 2500 KC transaction, and have the wallet unlocked sync, and minimum 15 confirmations of 2500KC transaction).
 
 Go to the help, debug window, console.
 
@@ -98,13 +65,13 @@ Go to the local wallet, masternode tab, click create.
 
 Fill in the fields:
 
-Alias: 		(name of your masternode)
-Address:	(IP:Port  example 23.34.32.220:14117)  IP is your remote VPS IP Address, Port for this coin is 14117 
+Alias: 		(random name of your masternode)
+Address:	(IP:Port  example 23.34.32.220:14117)  IP is your remote VPS IP Address, Default Port for Kraken Coin is 14117 
 PrivKey:	Your masternode private key
 TxHash:		Your valid Transaction hash, (the long string clean without the extra stuff)
 Output Index:	Your valid transaction index (0 or 1)
-Reward Address: Your Kraken Coin Address
-Reward:		100%
+Reward Address: Leave blank
+Reward:		Leave blank
 
 click ok,
 
@@ -116,7 +83,7 @@ You can open it to check (Optional)
 
 In there you should have just one long string with all your infos one after the others:
 
-	Alias Address:Port PrivKey TxHash Index RewardAdress %
+	Alias Address:Port PrivKey TxHash Index 
 
 Now you know where to find it.
 
@@ -128,11 +95,6 @@ The Local side is done, now we need to setup the VPS:
 ------------------------------------------------
 Setting up the remote Kraken Coin Wallet On VPS 
 ------------------------------------------------
-
-* This is based on Crave's masternode setup by clif-on-crypto on steemit: 
-https://steemit.com/crave/@cliff-on-crypto/how-to-setup-your-crave-masternode-on-vps-with-video-tutorial
-
-Once you purchased a fresh VPS with Ubuntu 14.04, and you are connected to it with Bitvise or similar software:
 
 We will be copy-pasting commands one by one in the VPS console:
 
@@ -184,16 +146,18 @@ sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw enable
 
-Step 4 : Compiling the wallet
-
-sudo apt-get install git
-git clone https://github.com/krakencoins/Kraken.git
-
-Step 5: You need to install dependencies
+Step 4 : You need to install dependencies
 
 sudo apt-get -y update && sudo apt-get -y install build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool
 
+sudo apt-get install git
+
+git clone https://github.com/krakencoins/Kraken.git
+
+Step 5: Compiling the wallet
+
 cd ~/Kraken/src
+
 make -f makefile.unix
 
 (this step takes a while, make sure it does not give you an error message at the end)
@@ -212,7 +176,6 @@ make -f makefile.unix
 * ./Krakend help 
 
 * -This was optional, only to help in case of problems or if you are curious-
-
 
 
 
@@ -236,45 +199,56 @@ nano ~/.Kraken/Kraken.conf
 ##navigate and edit the file to make it look like this:
 ##(Change username and password)
 
-rpcuser=yourusername
-
-rpcpassword=yourlongandverysecurepassword
-
+rpcuser= (yourrandomuser)
+rpcpassword= (yourrandompassword)
 rpcallowip=127.0.0.1
-
-daemon=1
-server=1
+rpcport=14116
 listen=1
+server=1
+daemon=1
+port=14117
+logintimestamps=1
+maxconnections=256
+masternode=1
+masternodeprivkey= (from local wallet)
 
 ##(Save And Exit)
 
 
 Let's Start the server again:
 
+cd ~/Kraken/src
 
 ./Krakend
 
 You should see server starting, and let it sync for a while.
+To check the status of your masternode, press enter (or ctrl+c) to get command line active if it's not and type:
 
-To check the status of your masternode, 
-
-
-Press enter to get command line active if it's not
 ./Krakend getinfo 
 
 
 Once the blocks number is the same that you can see in the help-debug window-information of your synced local wallet, or on the block explorer, it means your vps wallet is synced.
 
-Restart your local wallet and go to masternodes. Press Update.
+Restart your local wallet,  go to Masternodes -> My Masternodes. Press Update.
 
-If you did the procedure to setup your local wallet, you should see your masternode with it's - alias - ID:Port - % - Reward address, so you can start it.
+If you did the procedure to setup your local wallet, you should see your masternode so you can press Start all and then Update again.
 
-You should see "masternode is running!"
+You should see "Masternode is Running."
 
-You can check status in the local console by typing masternode status
+You don't need to keep you local open now. 
 
-If you get "status" : 1 it's all good! You don't need to keep you local open now.
+Your VPS "masternode status" command should show when it works fine.
+    "status" : 9,
+    "pubKeyMasternode" : "yourpubkey",
+    "notCapableReason" : "Could not find suitable coins!"
 
-If it's not working i suggest you go to the Kraken Coin slack to ask for help https://krakencoin.slack.com/
+If you get: 
+    "status" : 2,
+    "pubKeyMasternode" : "yourpubkey",
+    "notCapableReason" : "Could not find suitable coins!"
 
-Enjoy your rewards !  
+Check masternode 2500KC trasation if it has minimum 15 confirmations. 
+or
+Restart your local wallet, go to Masternodes -> My Masternodes. Press Update. Select masternode from list and press Start. Press Update again.
+
+
