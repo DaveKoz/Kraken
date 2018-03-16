@@ -1,0 +1,110 @@
+	LOCAL WINDOWS HOT WALLET- VPS WINDOWS COLD WALLETS SETUP (3 cold wallets in this example)
+------------------------------------------------------------------------------------------------------------
+	 
+Requirements
+ - 2500 KC for every masternode 
+
+
+LOCAL WINDOWS HOT WALLET
+STEP 1 : Preparing - controller wallet
+1 - Open your main wallet where you have your coins
+2 - Go to Receive tab
+3 - Press button "New address" and enter "Masternode 1" in Label (do not check "Stealth address")
+4 - Press button "New address" and enter "Masternode 2" in Label (do not check "Stealth address")
+5 - Press button "New address" and enter "Masternode 3" in Label (do not check "Stealth address")
+4 - Send to each address exactly 2500 KC by one transaction. This can be done by going to Send button and clicking on add recipient two times. And fill all 3 address on pay to and 2500 as amount.
+5 - Wait for 1 confirmation of transaction and go to the Debug console
+6 - Run command 3 times "masternode genkey" and write down generated keys (this are your HOT (controller) wallet private keys)
+7 - Run command "masternode outputs" and write down hexnumbers (this is your masternode tx) and digit after ":" (this is tx index)
+You will get 3 output like 
+{
+    "60835a7d867d335434925c32f38902268e131e99a5821557d3e77f8ca3829fd8" : "0",
+    "60835a7d867d335434925c32f38902268e131e99a5821557d3e77f8ca3829fd8" : "1",
+    "60835a7d867d335434925c32f38902268e131e99a5821557d3e77f8ca3829fd8" : "2"
+}
+8 - Go to Masternodes tab and switch to the "My Masternodes"
+9 - Press button "Create"
+10 - Enter "Alias" - "MN1" (do not use spaces and special charatcers)
+11 - Enter "Address" - "YOURVPSIP:PORT" (your external white ip and port for 1st masternode/cold wallet)
+12 - Enter "Privkey" - HOT (controller) wallet private key you generated with "masternode genkey"
+13 - Enter "TxHash" - 1st masternode tx from "masternode outputs" command
+14 - Enter "Output Index" - 1st tx index from "masternode outputs" command
+15 - Reward address leave blank
+16 - Reward % leave blank
+17 - Now you can press "Ok"
+18 - Repeat process from step 9 for MN2 and MN3. With renaming MN1 to MN2 and MN3 and changing port, TxHash and Output index 
+19 - Press "Update" and you will see all three masternodes in list with status "Not in the masternode list".
+Steps 8-17 creates masternode.conf. You can skip this steps and create it by yourself. It have format:
+
+ALIAS IP:PORT PRIVKEY TXHASH OUTPUTINDEX    (One line = one masternode config)
+
+
+VPS WINDOWS COLD WALLETS
+STEP 2 : Preparing masternodes
+0 - Download latest version of Kraken Coin wallet. Run it and let sync. Then exit wallet.
+1 - Choose the place where you will hold your masternodes dirs (you need 1Gb free space for every masternode)
+2 - Create folder "KrakenMN1" there
+3 - Copy wallet file "Kraken-qt.exe" to folder "KrakenMN1"
+4 - Create in folder "KrakenMN1" new folder "data"
+5 - Copy file "blk0001.dat" and folder "txleveldb" from %appdata%\Kraken to created folder "data" (MN1\data)
+6 - Rename "Kraken-qt.exe" to the "Kraken-mn1.exe" 
+7 - Press Win+R and type "cmd" and press Enter
+8 - Now type there:
+echo start Kraken-mn1.exe -datadir=./data > %homepath%/Desktop/startmn1.cmd
+9 - Move file "startmn1.cmd" from Desktop to the "KrakenMN1" folder
+10 - Repeat the process from step 2 for each masternode you want to created, with changing mn1 to mn2, mn3
+11 - Run startmn1.cmd, startmn2.cmd and startmn3.cmd, wait for complete loading wallets and complete syncing with blockchain
+12 - Now you can exit from each running masternode wallets
+
+
+STEP 3 : Configuring masternodes
+1 - Go to "KrakenMN1/data" folder
+2 - Open "Kraken.conf" in Notepad
+3 - Type there:
+
+rpcuser= (randomusername)
+rpcpassword= (randompassword)
+rpcallowip=127.0.0.1
+listen=1
+server=1
+daemon=1
+port=14117 (different for mn2 and mn3)
+logintimestamps=1
+maxconnections=256
+masternode=1
+masternodeprivkey= (masternodeprivatekyegeneratedinhotwallet)
+
+4 - Replace PORT with port for your Masternode 1
+5 - Replace PRIVKEY with masternode private key you generated with "masternode genkey" in controller wallet for Masternode 1
+6 - Save it and close Kraken.conf.
+7 - Repeat process for Masternode 2 (KrakenMN2) and Masternode 3 (KrakenMN3).
+
+STEP 4 : Starting masternodes
+1 - Start all your masternodes by executing the file "startmn1.cmd", "startmn2.cmd" and "startmn3.cmd"
+2 - Go to local HOT (controller) wallet, check that 2500KC transatcions for masternodes have at least 15 confirmations.
+3 - Go to Masternodes tab and switch to the "My Masternodes"
+4 – Press "Start All". You should get informations "Masternode started successfully". Press Update. You should get "Masternode is Running".
+
+Check masternode status in debug console of VPS COLD wallet with "masternode status" command.
+
+Your VPS "masternode status" command should show when it works fine:
+    "status" : 9,
+    "pubKeyMasternode" : "yourpubkey",
+    "notCapableReason" : "Could not find suitable coins!"
+
+DO NOT hit "Start" or "Start all" everytime when you open your local to check of working masternode and you see "Not in the masternode list". Press "Update", wait for list of all masternodes to refresh and then press "Update" again.
+Check VPS masternode status before you press "Start" or "Start all".
+
+If you get: 
+    "status" : 2,
+    "pubKeyMasternode" : "yourpubkey",
+    "notCapableReason" : "Could not find suitable coins!"
+
+Check masternode 2500KC trasation if it has minimum 15 confirmations. 
+or
+Restart your local wallet , go to Masternodes -> My Masternodes. Press Update. Select masternode from list and press Start. Press Update again.
+
+Don't be afraid to running PoS on controller wallet. It's do not damaged your masternode transactions because all masternode coins will be excluded from PoS.
+
+
+
