@@ -3,7 +3,7 @@
 
 We will be setting up masternode wallets:
 
-1- One or more wallet is installed remotely on the VPS, it will not have funds in it, so it considered cold.
+1- One or more wallets installed remotely on the VPS, it will not have funds in it, so it considered cold.
 2- One wallet is installed locally on your Windows system, it will have the funds in it, so it is considered hot. This acts as a proof that you own the funds, and as a remote control.
 
 After the install, you can shut down your local wallet anytime, and the remote wallet will continue working 24/7, and it will be sending your rewards to your local wallet.
@@ -36,7 +36,7 @@ This is your MASTERNODE DEPOSIT ADDRESS, where you will deposit the coins to cre
 If you were sent more or less than 2500 KC, send exactly 2500 KC to yourself so you have a valid transaction.
 You need 15 confirmations on your valid tx to start your masternode.
 
-In the Console Debug window enter ìmasternode genkeyî and copy the result to your notepad. Use "masternode genkey" second time for mn2, etc.
+In the Console Debug window enter ‚Äúmasternode genkey‚Äù and copy the result to your notepad. Use "masternode genkey" second time for mn2, etc.
 This is your MASTERNODE PRIVKEY. 
 
 Now we need to find the Valid transaction proof:  
