@@ -3,6 +3,7 @@
 	 
 Requirements
  - 2500 KC for every masternode 
+ - open VPS ports for masternodes
 
 
 LOCAL WINDOWS HOT WALLET
@@ -38,6 +39,7 @@ Steps 8-17 creates masternode.conf. You can skip this steps and create it by you
 
 ALIAS IP:PORT PRIVKEY TXHASH OUTPUTINDEX    (One line = one masternode config)
 
+(Optional) You can open masternode.conf to check or type "masternode list-conf" in wallet console
 
 VPS WINDOWS COLD WALLETS
 STEP 2 : Preparing masternodes
@@ -83,7 +85,7 @@ STEP 4 : Starting masternodes
 1 - Start all your masternodes by executing the file "startmn1.cmd", "startmn2.cmd" and "startmn3.cmd"
 2 - Go to local HOT (controller) wallet, check that 2500KC transatcions for masternodes have at least 15 confirmations.
 3 - Go to Masternodes tab and switch to the "My Masternodes"
-4 – Press "Start All". You should get informations "Masternode started successfully". Press Update. You should get "Masternode is Running".
+4 â€“ Press "Start All". You should get informations "Masternode started successfully". Press Update. You should get "Masternode is Running".
 
 Check masternode status in debug console of VPS COLD wallet with "masternode status" command.
 
