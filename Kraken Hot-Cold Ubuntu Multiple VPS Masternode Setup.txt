@@ -79,7 +79,7 @@ Close the wallet by going to File -> Exit.
 
 It should have created a file in your %appdata% roaming folder-Kraken called masternode.conf
 
-You can open it to check (Optional)
+(Optional) You can open it to check or type "masternode list-conf" in wallet console
 
 In there you should have just one long string with all your infos one after the others:
 
@@ -190,11 +190,11 @@ nano ~/.Kraken/Kraken.conf
 rpcuser= (yourrandomuser)
 rpcpassword= (yourrandompassword)
 rpcallowip=127.0.0.1
-rpcport=14116
+rpcport=14116 (change it in 2nd and next masternodes for example 14115, 14114)
 listen=1
 server=1
 daemon=1
-port=14117  (change it in 2nd and next masternodes)
+port=14117  (change it in 2nd and next masternodes for example 14118, 14119)
 logintimestamps=1
 maxconnections=256
 masternode=1
