@@ -66,38 +66,33 @@ Go to the local wallet, masternode tab, click create.
 Fill in the fields:
 
 Alias: 		(mn1, mn2 , etc.)
-Address:	(IP:Port  example 23.34.32.220:14117)  IP is your remote VPS IP Address, Default Port for Kraken Coin is 14117. Change port number for second and more masternodes (14118, 14119, etc.
+Address:	(IP:Port  example 23.34.32.220:14117)  IP is your remote VPS IP Address, Default Port for Kraken Coin is 14117. Change port number for second and more masternodes (14118, 14119, etc.)
 PrivKey:	Your masternode private key
 TxHash:		Your valid Transaction hash (the long string clean without the extra stuff)
 Output Index:	Your valid transaction index (0 or 1)
 Reward Address: Leave blank
 Reward:		Leave blank
 
-click ok,
-
-Close the wallet by going to File -> Exit.
+click ok
 
 It should have created a file in your %appdata% roaming folder-Kraken called masternode.conf
 
-(Optional) You can open it to check or type "masternode list-conf" in wallet console
+(Optional) You can open that file to check or type "masternode list-conf" in wallet console
 
-In there you should have just one long string with all your infos one after the others:
+In masternode.conf you should have just one long string with all your infos one after the others:
 
 	Alias Address:Port PrivKey TxHash Index 
 
-Now you know where to find it.
 
-Open the Kraken Wallet again by running Kraken-qt.exe.
-
-The Local side is done, now we need to setup the VPS:
+The Local side is done, now we need to setup the VPS.
 
 
 ------------------------------------------------
 Setting up the remote Kraken Coin Wallet On VPS 
 ------------------------------------------------
 
-FOR EACH MASTERNODE CREATE NEW SUDO USER (for example adduser mn1 and adduser mn1 sudo)
-LOGIN AS THAT USER AND CONTINUE AS FOLLOW (remember to change port number for 2nd, 3rd, etc. masternodes and put right masternodeprivkey in VPS Kraken.conf) 
+FOR EACH MASTERNODE CREATE NEW SUDO USER (for example "adduser mn1" and "adduser mn1 sudo")
+LOGIN AS THAT USER AND CONTINUE AS FOLLOW (remember to change port number for 2nd, 3rd, masternodes and put right masternodeprivkey in VPS Kraken.conf) 
 
 
 We will be copy-pasting commands one by one in the VPS console:
@@ -105,70 +100,31 @@ We will be copy-pasting commands one by one in the VPS console:
 (in Ubuntu console you paste using right click-enter. Ctrl-C and Ctrl-V doesn't work. Selection automatically copies to clipboard also).
 
 
-Starting and Updating Ubuntu:
-
-(Copy paste these commands as root):
+Step 1: Starting and updating Ubuntu: 
+(Copy paste these commands as root or sudo user - do it only once for first masternode):
 
 sudo apt-get update
 
 sudo apt-get upgrade -y
 
 
+Step 2 : Installing dependencies (do it only once for first masternode):
 
-Step 2: Making swapfile: (do it only first time)
-
-sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=1000
-sudo mkswap /var/swap.img
-sudo swapon /var/swap.img
+sudo apt-get -y update && sudo apt-get -y install git build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool
 
 
-To make the swap file persist after rebooted:
-
-sudo chmod 0600 /var/swap.img
-sudo chown root:root /var/swap.img
-sudo nano /etc/fstab
-
-Append the following line to the end of the file:
-
-/var/swap.img none swap sw 0 0
-
-Save the file and exit
-
-Step 3 : You need to install dependencies 
-
-sudo apt-get -y update && sudo apt-get -y install build-essential libssl-dev libdb++-dev libboost-all-dev libcrypto++-dev libqrencode-dev libminiupnpc-dev libgmp-dev libgmp3-dev autoconf autogen automake libtool
-
-sudo apt-get install git
+Step 3: Compiling the wallet
 
 git clone https://github.com/krakencoins/Kraken.git
-
-Step 4: Compiling the wallet
 
 cd ~/Kraken/src
 
 make -f makefile.unix
 
-(this step takes a while, make sure it does not give you an error message at the end)
+(this step takes a while, make sure it does not give you an error message at the end and create Krakend file)
 
 
-* -Optional-
-*
-* Once completed, to see if the wallet is ready you can type:
-
-* ls
-
-* If you have the file called Krakend in the list, that is your VPS wallet.
-
-* If you want to see the different functions of your wallet you can type:
-
-* ./Krakend help 
-
-* -This was optional, only to help in case of problems or if you are curious-
-
-
-
-Step 5: Now you can Start your VPS masternode:
-
+Step 4: Starting VPS masternode:
 
 ./Krakend
 
@@ -178,7 +134,7 @@ And exit normally, it wants you to set a user and password in the file ~/.Kraken
 You can use the password it suggests, or use another one you choose.
 
 
-Step 6: Editing Kraken.conf to set user and password (Note edit with nano or vi)
+Step 5: Editing Kraken.conf to set user and password (Note edit with nano or vi)
 
 apt-get install nano git -y
 
