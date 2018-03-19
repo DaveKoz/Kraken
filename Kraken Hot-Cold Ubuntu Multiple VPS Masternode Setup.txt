@@ -190,7 +190,7 @@ Your VPS "masternode status" command should show when it works fine.
     "pubKeyMasternode" : "yourpubkey",
     "notCapableReason" : "Could not find suitable coins!"
 
-DO NOT hit "Start" or "Start all" everytime when you open your local wallet to check of working masternode. Press "Update", wait for list of all masternodes to refresh and then press "Update" again.
+DO NOT hit "Start" or "Start all" everytime when you open your local wallet to check of working masternode. Press "Update", wait (even 30mins) for list of all masternodes to refresh and then press "Update" again.
 
 
 If you get: 
