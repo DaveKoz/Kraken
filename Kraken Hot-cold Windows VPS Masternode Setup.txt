@@ -82,10 +82,10 @@ masternodeprivkey= (masternodeprivatekyegeneratedinhotwallet)
 7 - Repeat process for Masternode 2 (KrakenMN2) and Masternode 3 (KrakenMN3).
 
 STEP 4 : Starting masternodes
-1 - Start all your masternodes by executing the file "startmn1.cmd", "startmn2.cmd" and "startmn3.cmd"
+1 - Start all your VPS masternodes by executing the file "startmn1.cmd", "startmn2.cmd" and "startmn3.cmd"
 2 - Go to local HOT (controller) wallet, check that 2500KC transatcions for masternodes have at least 15 confirmations.
-3 - Go to Masternodes tab and switch to the "My Masternodes"
-4 – Press "Start All". You should get informations "Masternode started successfully". Press Update. You should get "Masternode is Running".
+3 - Go to Masternodes tab and switch to the "My Masternodes".
+4 – Press "Start All" (UNLOCK wallet first if it is locked). You should get informations "Masternode started successfully". Press Update. You should get "Masternode is Running".
 
 Check masternode status in debug console of VPS COLD wallet with "masternode status" command.
 
@@ -94,10 +94,10 @@ Your VPS "masternode status" command should show when it works fine:
     "pubKeyMasternode" : "yourpubkey",
     "notCapableReason" : "Could not find suitable coins!"
 
-DO NOT hit "Start" or "Start all" everytime when you open your local to check of working masternode and you see "Not in the masternode list". Press "Update", wait for list of all masternodes to refresh and then press "Update" again.
+DO NOT hit "Start" or "Start all" everytime when you open your local to check of working masternode and you see "Not in the masternode list". Press "Update", wait for list of all masternodes to refresh (even 30mins) and then press "Update" again.
 Check VPS masternode status before you press "Start" or "Start all".
 
-If you get: 
+If you get VPS masternode status: 
     "status" : 2,
     "pubKeyMasternode" : "yourpubkey",
     "notCapableReason" : "Could not find suitable coins!"
@@ -106,7 +106,7 @@ Check masternode 2500KC trasation if it has minimum 15 confirmations.
 or
 Restart your local wallet , go to Masternodes -> My Masternodes. Press Update. Select masternode from list and press Start. Press Update again.
 
-Don't be afraid to running PoS on controller wallet. It's do not damaged your masternode transactions because all masternode coins will be excluded from PoS.
+Don't be afraid to running PoS on controller wallet. It does not damaged your masternode transactions because all masternode coins will be excluded from PoS.
 
 
 
