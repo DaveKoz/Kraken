@@ -40,7 +40,7 @@ In the Console Debug window enter “masternode genkey” and copy the result to
 This is your MASTERNODE PRIVKEY. 
 
 Now we need to find the Valid transaction proof:  
-(You need to have already made your exact 2500 KC transaction, and have the wallet unlocked sync, and minimum 15 confirmations of 2500KC transaction).
+(You need to have already made your exact 2500 KC transaction, and have the wallet unlocked and sync, and minimum 15 confirmations of 2500KC transaction).
 
 Go to the help, debug window, console.
 
@@ -224,7 +224,7 @@ Once the blocks number is the same that you can see in the help-debug window-inf
 
 Restart your local wallet,  go to Masternodes -> My Masternodes. Press Update.
 
-If you did the procedure to setup your local wallet, you should see your masternode so you can press Start all and then Update again.
+If you did the procedure to setup your local wallet, you should see your masternode so UNLOCK wallet if it is locked and press Start all and then Update again.
 
 You should see "Masternode is Running."
 
@@ -239,7 +239,7 @@ Your VPS "masternode status" command should show when it works fine.
 DO NOT hit "Start" or "Start all" everytime when you open your local to check of working masternode. Press "Update", wait for list of all masternode to refresh and then pres "Update" again.
 
 
-If you get: 
+If you get VPS masternode status: 
     "status" : 2,
     "pubKeyMasternode" : "yourpubkey",
     "notCapableReason" : "Could not find suitable coins!"
