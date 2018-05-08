@@ -9,7 +9,7 @@
 #include "clientversion.h"
 
 //
-// Bootup the masternode, look for a 500 KC input and register on the network
+// Bootup the masternode, look for a 2500 KC input and register on the network
 //
 void CActiveMasternode::ManageStatus()
 {
@@ -23,6 +23,7 @@ void CActiveMasternode::ManageStatus()
     bool fIsInitialDownload = IsInitialBlockDownload();
     if(fIsInitialDownload) {
         status = MASTERNODE_SYNC_IN_PROCESS;
+	    notCapableReason = "Sync in progress. Must wait until sync is complete to start masternode.";
         LogPrintf("CActiveMasternode::ManageStatus() - Sync in progress. Must wait until sync is complete to start masternode.\n");
         return;
     }
