@@ -83,7 +83,7 @@ void CActiveMasternode::ManageStatus()
             LogPrintf("CActiveMasternode::ManageStatus() - Is capable master node!\n");
 
             status = MASTERNODE_IS_CAPABLE;
-            notCapableReason = "";
+            notCapableReason = "Successfully started masternode.";
 
             pwalletMain->LockCoin(vin.prevout);
 
