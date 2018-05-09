@@ -107,7 +107,7 @@ void CActiveMasternode::ManageStatus()
 
             return;
         } else {
-            notCapableReason = "Could not find suitable coins!";
+            notCapableReason = "Could not find suitable coins! Start masternode in local wallet, in Masternode tab.";
         	LogPrintf("CActiveMasternode::ManageStatus() - Could not find suitable coins!\n");
         }
     }
